@@ -22,44 +22,49 @@ let t = m.p(null, 100);
 // m === ["Arial", "blue", 12, 100]
 */
 
-Array.prototype.p = function (x, y) {
-    if (x > 0) {
+Object.defineProperty(Array.prototype, "p", {
+    value: function (x, y) {
+        if (x > 0) {
         if(y !== undefined){
-            this[x-1] = y; return;
-        }
-        else {
-            return this[x-1];
-        }
+                this[x-1] = y; return;
+            }
+            else {
+                return this[x-1];
+            }
     };
-    if (x < 0) {
+        if (x < 0) {
         if(y !== undefined){
-            let i = this.length + x;
+                let i = this.length + x;
             if(i>=0){
-                this[i] = y;
-            } else {
-                this.unshift(y);
+                    this[i] = y;
+                } else {
+                    this.unshift(y);
             };
-            return;
+                return;
         }
         else {
-            return this[this.length + x];
-        }
+                return this[this.length + x];
+            }
     };
-    if (x === 0) {
+        if (x === 0) {
         if(y !== undefined){
             this.unshift(y); return;
         }
         else {
-            return;
-        }
+                return;
+            }
     };
     if ( x === null || x === false || x === undefined || x === "") {
         if(y !== undefined){
             this.push(y); return;
         }
         else {
-            return;
-        }
+                return;
+            }
     };
-    return;
-};
+        return;
+    },
+    writable: true,
+    configurable: true,
+    enumerable: false
+});
